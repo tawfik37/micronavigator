@@ -20,9 +20,24 @@ A potential field-based path planning system for rectangular robots navigating g
 
 ## 🚀 Usage
 
+### Running Path Planning
+
 ```bash
 python3 main.py
 ```
+
+### Running Evaluation
+
+```bash
+python3 run_evaluation.py
+```
+
+The evaluation system benchmarks the path planning algorithm performance across multiple scenarios:
+- Tests different robot sizes (1x1 to 5x5 grid cells)
+- Evaluates various map configurations
+- Measures key metrics: path length, computation time, and success rate
+- Generates comprehensive visualizations and statistics
+- Outputs results to `evaluation/results/` directory
 
 ## ⚙️ Configuration
 
