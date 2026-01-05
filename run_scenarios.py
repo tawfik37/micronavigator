@@ -54,13 +54,13 @@ def main():
         },
         # Test with larger robot size
         {
-            "name": "Scenario 3: Maze (2x2 Robot)",
+            "name": "Scenario 7: Maze - Large Robot",
             "map_file": "map/scenario3_maze.txt",
             "robot_width": 2,
             "robot_height": 2,
         },
         {
-            "name": "Scenario 4: Cluttered (2x2 Robot)",
+            "name": "Scenario 8: Cluttered - Large Robot",
             "map_file": "map/scenario4_cluttered.txt",
             "robot_width": 2,
             "robot_height": 2,
