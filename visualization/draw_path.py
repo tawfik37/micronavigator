@@ -3,9 +3,16 @@ import matplotlib.patches as mpatches
 import numpy as np
 from config.settings import FREE, OBSTACLE, START, GOAL
 
-def draw_path(grid, path, output_file="path_output.png", potential=None):
+def draw_path(grid, path, output_file="path_output.png", potential=None, show_potential=False):
     """
     Creates a professional, publication-ready visualization of path planning results.
+
+    Args:
+        grid: 2D grid
+        path: List of (row, col) coordinates
+        output_file: Output filename
+        potential: Optional potential field (2D array)
+        show_potential: If True, shows potential field as heatmap (default: False for cleaner look)
     """
     if not path:
         return
@@ -47,8 +54,9 @@ def draw_path(grid, path, output_file="path_output.png", potential=None):
     else:  # Normal aspect ratio
         plt.subplots_adjust(left=0.08, right=0.92, top=0.88, bottom=0.12)
 
-    # --- 4. Draw Background ---
-    if potential:
+    # --- 4. Draw Background (Optional Potential Field) ---
+    # Only show potential field if explicitly requested (cleaner without it)
+    if potential and show_potential:
         flat_pot = [v for row in potential for v in row if v != float('inf')]
         max_val = max(flat_pot) if flat_pot else 100
 
@@ -61,7 +69,7 @@ def draw_path(grid, path, output_file="path_output.png", potential=None):
             plot_potential,
             cmap='YlOrRd',
             interpolation='bilinear',
-            alpha=0.3,
+            alpha=0.2,  # More subtle
             extent=[-0.5, cols - 0.5, rows - 0.5, -0.5],
             aspect='equal'
         )
@@ -147,20 +155,20 @@ def draw_path(grid, path, output_file="path_output.png", potential=None):
     clean_name = output_file.split("/")[-1].replace(".png", "").replace("_", " ").title()
     path_len = len(path)
 
-    # Adjust title positions based on aspect ratio with better spacing
+    # Adjust title positions based on aspect ratio with BETTER spacing
     if aspect_ratio > 2.5:  # Very wide - needs more vertical separation
-        title_y = 0.96
-        subtitle_y = 0.89
+        title_y = 0.97
+        subtitle_y = 0.885  # More space below title
         title_size = 15
         subtitle_size = 9
     elif aspect_ratio < 0.5:  # Very tall
-        title_y = 0.97
-        subtitle_y = 0.935
+        title_y = 0.98
+        subtitle_y = 0.93  # More space below title
         title_size = 16
         subtitle_size = 10
     else:  # Normal
-        title_y = 0.965
-        subtitle_y = 0.915
+        title_y = 0.975
+        subtitle_y = 0.905  # More space below title
         title_size = 16
         subtitle_size = 10
 
@@ -174,7 +182,7 @@ def draw_path(grid, path, output_file="path_output.png", potential=None):
         family='sans-serif'
     )
 
-    # Subtitle with stats
+    # Subtitle with stats - now with more space from title
     subtitle = f"Path Length: {path_len} steps  |  Grid Size: {cols}×{rows}"
     fig.text(
         0.5, subtitle_y,
