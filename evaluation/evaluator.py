@@ -9,7 +9,6 @@ from robot.shape_handler import inflate_obstacles
 from visualization.draw_path import draw_path
 from visualization.animate_path import animate_path
 from visualization.comparison_charts import create_comparison_charts
-from visualization.draw_potential_3d import draw_potential_3d, draw_potential_3d_interactive
 from config.settings import ROBOT_WIDTH, ROBOT_HEIGHT
 
 # Define the single folder where everything will be saved
@@ -58,18 +57,18 @@ class PerformanceEvaluator:
                 stats.set_success(True)
                 stats.set_path_info(path)
 
-                # --- NEW: Generate Clean Filename ---
+                # --- Generate Clean Filename ---
                 # Converts "Scenario 1: Simple" -> "scenario_1_simple"
                 safe_name = scenario_name.replace(":", "").replace(" ", "_").lower()
-                
-                # --- NEW: Save PNG and GIF ---
+
+                # --- Save Visualizations ---
                 png_file = os.path.join(OUTPUT_DIR, f"{safe_name}.png")
                 gif_file = os.path.join(OUTPUT_DIR, f"{safe_name}.gif")
 
                 print(f"Generating visualizations in {OUTPUT_DIR}/...")
-                draw_path(grid, path, png_file)
+                draw_path(grid, path, png_file, potential=potential)
                 animate_path(grid, path, gif_file)
-                print(f"Saved: {safe_name}.gif")
+                print(f"Saved: {safe_name} (2D PNG + GIF animation)")
 
             else:
                 stats.set_success(False, "Path did not reach goal")
